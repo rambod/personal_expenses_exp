@@ -16,9 +16,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Personal Expenses',
       theme: ThemeData(
-        primarySwatch: Colors.cyan,
-        accentColor: Colors.cyanAccent,
-
+        primarySwatch: Colors.deepPurple,
+        accentColor: Colors.deepPurpleAccent,
+        fontFamily: 'Quicksand',
+        appBarTheme: AppBarTheme(textTheme: ThemeData.light().textTheme.copyWith(
+                title: TextStyle(
+              fontFamily: 'Quicksand',
+              fontSize: 20,
+                  color: Colors.white,
+            ))),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Personal Expenses'),
@@ -40,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
         context: ctx,
         builder: (_) {
           return GestureDetector(
-              onTap: (){},
+              onTap: () {},
               behavior: HitTestBehavior.opaque,
               child: NewTransaction(_addNewTransaction));
         });
@@ -70,15 +76,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 width: double.infinity,
                 child: Center(
                   child: Text(
-                    'RamAi',
+                    'Keep Track of you expenses !',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                         shadows: [
-                          Shadow(
-                              offset: Offset(3, 3),
-                              blurRadius: 15)
+                          Shadow(offset: Offset(3, 3), blurRadius: 15)
                         ]),
                   ),
                 ),
@@ -89,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       bottomRight: Radius.circular(120),
                     )),
               ),
+              SizedBox(height: 10,),
               Card(
                 elevation: 5,
                 child: Container(width: double.infinity, child: Text('CHART!')),
@@ -110,30 +115,30 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final List<Transaction> _transaction = [
-    Transaction(
-      id: 't1',
-      title: 'New Shoes',
-      amount: 69.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Weekly Grocries',
-      amount: 134.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't3',
-      title: 'Monthly Grocries',
-      amount: 1134.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't4',
-      title: 'Electornic stuff',
-      amount: 34.99,
-      date: DateTime.now(),
-    ),
+//    Transaction(
+//      id: 't1',
+//      title: 'New Shoes',
+//      amount: 69.99,
+//      date: DateTime.now(),
+//    ),
+//    Transaction(
+//      id: 't2',
+//      title: 'Weekly Grocries',
+//      amount: 134.99,
+//      date: DateTime.now(),
+//    ),
+//    Transaction(
+//      id: 't3',
+//      title: 'Monthly Grocries',
+//      amount: 1134.99,
+//      date: DateTime.now(),
+//    ),
+//    Transaction(
+//      id: 't4',
+//      title: 'Electornic stuff',
+//      amount: 34.99,
+//      date: DateTime.now(),
+//    ),
   ];
 
   void _addNewTransaction(String txTitle, double txAmount) {

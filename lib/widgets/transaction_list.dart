@@ -11,7 +11,15 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 500,
-      child: ListView.builder(
+      child: _transaction.isEmpty? Column(
+        children: <Widget>[
+          SizedBox(height: 50,),
+
+          Text('No Transaction Added Yet!',style: TextStyle(fontFamily: 'OpenSans',fontSize: 20),),
+          SizedBox(height: 50,),
+          Image.asset('assets/images/sleep.png',fit: BoxFit.cover,height: 100,)
+        ],
+      ) : ListView.builder(
         itemBuilder: (ctx, index) {
           return Card(
             elevation: 5,
@@ -26,7 +34,7 @@ class TransactionList extends StatelessWidget {
                         color: Theme.of(context).primaryColor,
                         shadows: [
                           Shadow(
-                              offset: Offset(1.0, 1.5),
+                              offset: Offset(.5,.5),
                               blurRadius: 1)
                         ]),
                   ),
