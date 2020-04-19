@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personalexpenses/widgets/chart.dart';
 import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
 
@@ -19,12 +20,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
         accentColor: Colors.deepPurpleAccent,
         fontFamily: 'Quicksand',
-        appBarTheme: AppBarTheme(textTheme: ThemeData.light().textTheme.copyWith(
-                title: TextStyle(
-              fontFamily: 'Quicksand',
-              fontSize: 20,
+        appBarTheme: AppBarTheme(
+            textTheme: ThemeData.light().textTheme.copyWith(
+                    title: TextStyle(
+                  fontFamily: 'Quicksand',
+                  fontSize: 20,
                   color: Colors.white,
-            ))),
+                ))),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Personal Expenses'),
@@ -76,10 +78,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 width: double.infinity,
                 child: Center(
                   child: Text(
-                    'Keep Track of you expenses !',
+                    'Keep Track of you\'r expenses !',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 25,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                         shadows: [
                           Shadow(offset: Offset(3, 3), blurRadius: 15)
@@ -93,11 +95,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       bottomRight: Radius.circular(120),
                     )),
               ),
-              SizedBox(height: 10,),
-              Card(
-                elevation: 5,
-                child: Container(width: double.infinity, child: Text('CHART!')),
+              SizedBox(
+                height: 10,
               ),
+              Chart(_recentTransactions),
               TransactionList(_transaction),
             ],
           ),
@@ -141,6 +142,14 @@ class _MyHomePageState extends State<MyHomePage> {
 //    ),
   ];
 
+  List<Transaction> get _recentTransactions {
+    return _transaction.where((tx) {
+      return tx.date.isAfter(DateTime.now().subtract(
+        Duration(days: 7),
+      ));
+    }).toList();
+  }
+
   void _addNewTransaction(String txTitle, double txAmount) {
     final newTx = Transaction(
         title: txTitle,
@@ -148,7 +157,6 @@ class _MyHomePageState extends State<MyHomePage> {
         date: DateTime.now(),
         id: DateTime.now().toString());
     setState(() {
-      // TODO: implement setState
       _transaction.add(newTx);
     });
   }
