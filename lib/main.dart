@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './widgets/new_transaction.dart';
-import './widgets/user_transaction.dart';
+import './widgets/transaction_list.dart';
 
 import 'models/transaction.dart';
 import 'package:intl/intl.dart';
@@ -10,42 +10,51 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
-//  void startAddNewTransacrion(BuildContext ctx){
-//    showModalBottomSheet(context: ctx, builder: (bCtx){
-//      return NewTransaction()
-//    });
-//
-//  }
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Personal Expense',
+      title: 'Personal Expenses',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.cyan,
+        accentColor: Colors.cyanAccent,
+
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Personal Expense'),
+      home: MyHomePage(title: 'Personal Expenses'),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
-
   final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  void _startAddNewTransacrion(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return GestureDetector(
+              onTap: (){},
+              behavior: HitTestBehavior.opaque,
+              child: NewTransaction(_addNewTransaction));
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(widget.title),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () => {},
+            onPressed: () => _startAddNewTransacrion(context),
           ),
         ],
       ),
@@ -68,14 +77,13 @@ class MyHomePage extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         shadows: [
                           Shadow(
-                              color: Colors.red,
                               offset: Offset(3, 3),
                               blurRadius: 15)
                         ]),
                   ),
                 ),
                 decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(120),
                       bottomRight: Radius.circular(120),
@@ -85,7 +93,7 @@ class MyHomePage extends StatelessWidget {
                 elevation: 5,
                 child: Container(width: double.infinity, child: Text('CHART!')),
               ),
-              UserTransaction(),
+              TransactionList(_transaction),
             ],
           ),
         ),
@@ -94,10 +102,49 @@ class MyHomePage extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButton: FloatingActionButton(
-        onPressed: ()=>{},
+        onPressed: () => _startAddNewTransacrion(context),
         tooltip: 'Add new',
         child: Icon(Icons.add),
       ),
     );
+  }
+
+  final List<Transaction> _transaction = [
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 69.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Weekly Grocries',
+      amount: 134.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't3',
+      title: 'Monthly Grocries',
+      amount: 1134.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't4',
+      title: 'Electornic stuff',
+      amount: 34.99,
+      date: DateTime.now(),
+    ),
+  ];
+
+  void _addNewTransaction(String txTitle, double txAmount) {
+    final newTx = Transaction(
+        title: txTitle,
+        amount: txAmount,
+        date: DateTime.now(),
+        id: DateTime.now().toString());
+    setState(() {
+      // TODO: implement setState
+      _transaction.add(newTx);
+    });
   }
 }

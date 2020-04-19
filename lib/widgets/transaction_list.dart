@@ -10,12 +10,11 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 500,
       child: ListView.builder(
         itemBuilder: (ctx, index) {
           return Card(
             elevation: 5,
-            shadowColor: Colors.blue,
             child: Row(
               children: <Widget>[
                 Container(
@@ -24,17 +23,16 @@ class TransactionList extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
-                        color: Colors.purple,
+                        color: Theme.of(context).primaryColor,
                         shadows: [
                           Shadow(
-                              color: Colors.purple,
-                              offset: Offset(1.0, 1.0),
-                              blurRadius: 3)
+                              offset: Offset(1.0, 1.5),
+                              blurRadius: 1)
                         ]),
                   ),
                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   decoration: BoxDecoration(
-                      border: Border.all(color: Colors.purple, width: 3)),
+                      border: Border.all(color: Theme.of(context).accentColor, width: 3)),
                   padding: EdgeInsets.all(10),
                   width: 100,
                   alignment: Alignment.center,
